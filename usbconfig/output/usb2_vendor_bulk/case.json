@@ -1,0 +1,21 @@
+{
+  "id": "usb2_vendor_bulk",
+  "files": {
+    "1:0:0": "01_device.bin",
+    "6:0:0": "06_device_qualifier.bin",
+    "7:0:0": "07_other_speed_configuration.bin",
+    "3:0:0": "03_string_0.bin",
+    "3:1:0": "03_string_1.bin",
+    "3:2:0": "03_string_2.bin",
+    "3:3:0": "03_string_3.bin",
+    "2:0:0": "02_configuration_0.bin"
+  },
+  "endpoints": {
+    "0x81": {
+      "file": "endpoint_0x81.bin",
+      "type": "bulk",
+      "direction": "in",
+      "max_packet_size": 512
+    }
+  }
+}

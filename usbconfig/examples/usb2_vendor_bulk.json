@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "id": "usb2_vendor_bulk",
+    "description": "USB 2.0 vendor-specific bulk test device"
+  },
+  "device": {
+    "bcd_usb": "0x0200",
+    "device_class": 0,
+    "device_subclass": 0,
+    "device_protocol": 0,
+    "vendor_id": "0x1FC9",
+    "product_id": "0x0001",
+    "bcd_device": "0x0100",
+    "max_packet_size_ep0": 64,
+    "strings": {
+      "languages": [
+        "0x0409"
+      ],
+      "manufacturer": "USB Roundtrip Lab",
+      "product": "USB 2.0 Vendor Test Device",
+      "serial": "LAB-USB2-0001"
+    }
+  },
+  "configurations": [
+    {
+      "name": "Default",
+      "configuration_value": 1,
+      "self_powered": false,
+      "remote_wakeup": true,
+      "max_power_ma": 448,
+      "interfaces": [
+        {
+          "interface_number": 0,
+          "alternate_setting": 0,
+          "interface_class": "0xFF",
+          "interface_subclass": "0x00",
+          "interface_protocol": "0x00",
+          "interface_index": 0,
+          "endpoints": [
+            {
+              "number": 1,
+              "direction": "in",
+              "transfer_type": "bulk",
+              "max_packet_size": 512,
+              "interval": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
