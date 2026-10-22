@@ -1,17 +1,14 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
-
 Direction = Literal["in", "out"]
 TransferType = Literal["control", "isochronous", "bulk", "interrupt"]
-
 @dataclass
 class SuperSpeedCompanion:
     max_burst: int = 0
     max_streams: int = 0
     mult: int = 0
     bytes_per_interval: int = 0
-
 @dataclass
 class Endpoint:
     number: int
@@ -25,7 +22,6 @@ class Endpoint:
     raw: str | None = None
     @property
     def address(self): return self.number | (0x80 if self.direction == "in" else 0)
-
 @dataclass
 class RawDescriptor:
     attach_to: str = "interface"
@@ -34,7 +30,6 @@ class RawDescriptor:
     def data(self):
         from .binary import parse_hex
         return parse_hex(self.bytes_hex)
-
 @dataclass
 class HIDFunction:
     bcd_hid: str = "0x0111"
@@ -44,7 +39,6 @@ class HIDFunction:
     def report_descriptor(self):
         from .binary import parse_hex
         return parse_hex(self.report_descriptor_hex)
-
 @dataclass
 class Interface:
     number: int
@@ -55,7 +49,6 @@ class Interface:
     interface_index: int = 0
     class_specific: list = field(default_factory=list)
     endpoints: list = field(default_factory=list)
-
 @dataclass
 class InterfaceAssociation:
     first_interface: int
@@ -64,7 +57,6 @@ class InterfaceAssociation:
     function_subclass: int = 0
     function_protocol: int = 0
     function_index: int = 0
-
 @dataclass
 class Configuration:
     name: str = "Default"
@@ -77,7 +69,6 @@ class Configuration:
     associations: list = field(default_factory=list)
     class_specific: list = field(default_factory=list)
     vendor_specific: list = field(default_factory=list)
-
 @dataclass
 class StringSet:
     languages: list = field(default_factory=lambda: [0x0409])
@@ -85,12 +76,10 @@ class StringSet:
     product: str = ""
     serial: str = ""
     extra: dict = field(default_factory=dict)
-
 @dataclass
 class Usb2ExtensionCapability:
     lpm_capable: bool = True
     bcd_usb: str = "0x0200"
-
 @dataclass
 class SuperSpeedCapability:
     ltm_capable: bool = False
@@ -98,13 +87,11 @@ class SuperSpeedCapability:
     functionality_support: int = 3
     u1_exit_latency: int = 1
     u2_exit_latency: int = 250
-
 @dataclass
 class BOS:
     usb2_extension: Usb2ExtensionCapability | None = None
     superspeed: SuperSpeedCapability | None = None
     raw_capabilities: list = field(default_factory=list)
-
 @dataclass
 class Device:
     bcd_usb: str = "0x0200"

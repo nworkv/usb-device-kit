@@ -2,13 +2,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from .model import *
-
 def _int(v, d=0):
     if v is None: return d
     return int(v, 0) if isinstance(v, str) else int(v)
-
 def _raw(v, attach="interface"): return RawDescriptor(v.get("attach_to", attach), v["bytes_hex"])
-
 def _endpoint(v):
     ss = v.get("superspeed") or v.get("superspeed_endpoint_companion")
     return Endpoint(
@@ -19,7 +16,6 @@ def _endpoint(v):
             max_burst=_int(ss.get("max_burst", 0)), max_streams=_int(ss.get("max_streams", 0)),
             mult=_int(ss.get("mult", 0)), bytes_per_interval=_int(ss.get("bytes_per_interval", 0))),
         raw=v.get("bytes_hex"))
-
 def _interface(v):
     return Interface(
         number=_int(v["interface_number"]), alternate_setting=_int(v.get("alternate_setting", 0)),
@@ -27,7 +23,6 @@ def _interface(v):
         interface_protocol=_int(v.get("interface_protocol", 0)), interface_index=_int(v.get("interface_index", 0)),
         class_specific=[_raw(x) for x in v.get("class_specific", [])],
         endpoints=[_endpoint(x) for x in v.get("endpoints", [])])
-
 def _configuration(v):
     interfaces, associations = [], []
     for function in v.get("functions", []):
@@ -63,7 +58,6 @@ def _configuration(v):
         interfaces=interfaces, associations=associations,
         class_specific=[_raw(x, "configuration") for x in v.get("class_specific", [])],
         vendor_specific=[_raw(x, "configuration") for x in v.get("vendor_specific", [])])
-
 def load_device(path):
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     d = data["device"]

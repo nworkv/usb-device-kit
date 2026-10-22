@@ -1,7 +1,5 @@
 from .model import Device
-
 class UsbConfigError(ValueError): pass
-
 def validate_device(device: Device):
     if not device.configurations: raise UsbConfigError("device must contain at least one configuration")
     if device.bcd_usb_value >= 0x0300:
@@ -11,7 +9,6 @@ def validate_device(device: Device):
     values = [c.configuration_value for c in device.configurations]
     if len(values) != len(set(values)): raise UsbConfigError("configuration values must be unique")
     for config in device.configurations: _validate_configuration(config)
-
 def _validate_configuration(config):
     numbers = [i.number for i in config.interfaces]
     if len(numbers) != len(set(numbers)): raise UsbConfigError("duplicate interface numbers")

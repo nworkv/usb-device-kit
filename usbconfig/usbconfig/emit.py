@@ -4,7 +4,6 @@ from pathlib import Path
 from .builder import *
 from .loader import load_device
 from .validator import validate_device
-
 def generate(input_path, output_dir):
     device = load_device(input_path)
     validate_device(device)
